@@ -1,6 +1,6 @@
 ### Hoofdvraag
 
-_Hoe kan het beheer van gevoelige informatie en credentials in Kubernetes-clusters worden geoptimaliseerd en beveiligd met behulp van Secrets Management?_
+_Hoe kunnen Kubernetes Secrets worden beheerd om de beveiliging van applicaties te verbeteren_
 
 ### Deelvragen met methoden
 
