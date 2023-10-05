@@ -9,36 +9,28 @@
 In de steeds sneller evoluerende wereld van softwareontwikkeling is beveiliging niet langer een bijzaak. Het beschermen van gevoelige gegevens en de integriteit van applicaties is van essentieel belang. Deze blog duikt in de wereld van Kubernetes Secrets en laat zien hoe je deze geheime 'sleutels' kunt beheren om jouw applicaties aanzienlijk veiliger te maken. Ontdek de strategieën en best practices die je kunt toepassen om de beveiliging van jouw Kubernetes-gebaseerde applicaties te versterken.
 
 ## Wat is Kubernetes Secret Management?
-Kubernetes Secret Management is een kritisch onderdeel van het beheren van gevoelige informatie binnen een Kubernetes-cluster. Het stelt ontwikkelaars en beheerders in staat om vertrouwelijke gegevens, zoals wachtwoorden, API-sleutels en certificaten, veilig op te slaan en te beheren. Door Kubernetes Secrets effectief te gebruiken, kunnen teams de beveiliging van hun containerized applicaties verbeteren.
+Kubernetes Secrets zijn een ingebouwd Kubernetes-resourcestype dat wordt gebruikt om gevoelige gegevens te beheren en op te slaan. Dit kunnen wachtwoorden, tokens, sleutels, of andere geheime informatie zijn die nodig is door applicaties binnen een cluster. Secrets worden base64-gecodeerd opgeslagen, maar het is belangrijk op te merken dat dit geen echte beveiliging biedt - het is meer een vorm van "security through obscurity". Daarom is effectief beheer van Secrets essentieel.
 
-### Definitie van Kubernetes Secrets
-Kubernetes Secrets zijn speciale Kubernetes-resources die worden gebruikt om geheime gegevens te bewaren. Ze kunnen worden gebruikt om gevoelige informatie te versleutelen en op te slaan, waardoor deze niet direct zichtbaar is voor gebruikers of applicaties die toegang hebben tot de Kubernetes-cluster.
+### Soorten Secrets
 
-### Soorten Gevoelige Informatie
-Kubernetes Secrets kunnen verschillende soorten vertrouwelijke gegevens beheren, waaronder:
+#### Generic/Opaque Secrets
+Dit zijn de meest voorkomende secrets en de standaard secret in Kubernetes. Ze kunnen willekeurige tekstgegevens opslaan, zoals gebruikersnamen en wachtwoorden, en worden vaak gebruikt om toegangsgegevens voor databases, API's en andere services op te slaan.
 
-- **Wachtwoorden:** Voor toegang tot databases, services en andere systemen.
-- **API-sleutels:** Gebruikt voor externe API-authenticatie.
-- **Certificaten:** Voor beveiligde communicatie en identiteitsverificatie.
-- **Tokens:** Voor autorisatie en authenticatie binnen applicaties.
+#### SSH Secrets
+Deze secrets worden gebruikt om SSH-sleutels op te slaan die nodig zijn voor toegang tot andere servers. Ze kunnen worden gebruikt in pods om beveiligde verbindingen met externe servers tot stand te brengen.
 
-### Gebruiksscenario's voor Kubernetes Secrets
+#### TLS Secrets 
+TLS (Transport Layer Security) Secrets worden gebruikt om SSL/TLS-certificaten op te slaan. Deze certificaten worden vaak gebruikt voor het beveiligen van communicatie met services, zoals HTTPS-verbindingen.
 
-Kubernetes Secrets zijn van onschatbare waarde in verschillende gebruiksscenario's, zoals:
+#### Service Account Tokens
+Elke pod in een Kubernetes-cluster heeft standaard toegang tot een serviceaccount-token. Deze tokens kunnen worden gebruikt om toegang te krijgen tot de Kubernetes API-server en andere Kubernetes-resources, zoals Secrets. Ze zijn handig voor het automatiseren van taken binnen een cluster.
 
-- **Database-toegang:** Het veilig opslaan van database-inloggegevens.
-- **Applicatieconfiguratie:** Het beheren van configuratieparameters zoals API-sleutels.
-- **TLS-certificaten:** Het beschermen van communicatie met versleutelde certificaten.
+#### Docker Registry Secrets
+Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan. Dit stelt pods in staat om Docker-images te halen van privéregio's die authenticatie vereisen.
 
-### Secrets in Kubernetes
-In Kubernetes worden geheimen opgeslagen in speciale Kubernetes-objecten genaamd "Secrets." Er zijn twee hoofdtypen Secrets:
+## Aanmaken van Secrets
 
-- **Opaque Secrets:** Dit zijn geheimen met willekeurige waarden, zoals wachtwoorden of API-sleutels. Ze worden opgeslagen als base64-gecodeerde tekst, wat betekent dat ze niet in platte tekst worden weergegeven in Kubernetes-configuratiebestanden.
-- **TLS Secrets:** Deze worden gebruikt om TLS-certificaten op te slaan, inclusief privésleutels en openbare certificaten.
-
-## Hoe implementeer je Kubernetes Secrets?
-
-## Best practises met kubernetes Secret management
+## Best Practices
 
 ### Gebruik Namespaces
 Gebruik namespaces om uw secrets te isoleren en de toegang daartoe te beperken. U kunt voor elk team of elke applicatie een aparte namespaces aanmaken en alleen toegang verlenen aan het noodzakelijke personeel.
@@ -57,8 +49,22 @@ Roteer uw secrets regelmatig, bijvoorbeeld elke 30 dagen, om ervoor te zorgen da
 
 ## Populaire Secret Management tools
 
-### Azure Key Vault
+### HashiCorp Vault 
+HashiCorp Vault is een gratis en open-source tool voor het veilig opslaan en beheren van gevoelige gegevens, zoals tokens, certificaten en API-sleutels. Het biedt een uniforme interface voor het beheren van geheimen en kan gebruikersaudits genereren. Vault ondersteunt traditionele en moderne methoden voor gebruikersauthenticatie en is een populaire keuze voor secrets management.
 
+### Akeyless 
+Akeyless Vault is een centrale oplossing voor geheimenbeheer, inclusief integratie met Kubernetes. Het gebruikt de Kubernetes Mutating Admission Webhook om geheimen in pods te injecteren en biedt functies zoals segregatie tussen Kubernetes-clusters, SSO-ondersteuning en verschillende authenticatiemogelijkheden.
+
+### CyberArk Conjur 
+CyberArk Secrets Manager is ontworpen voor Kubernetes en biedt geheimen- en referentiebeheer voor cloud-native en containeromgevingen. Het verwijdert hardgecodeerde geheimen uit broncode en biedt centraal beheer voor verschillende toepassingsworkloads.
+
+### AWS Secrets Manager
+AWS Secrets Manager is een AWS-service waarmee je snel database-inloggegevens, API-sleutels en andere wachtwoorden kunt roteren, beheren en ophalen. Met Secrets Manager kun je geheimen beveiligen, analyseren en beheren die nodig zijn om toegang te krijgen tot AWS Cloud-mogelijkheden, externe services en on-premises.
+
+### Google Cloud Secrets Manager
+Secret Manager is een dienst van Google Cloud voor het beheren van geheimen op clusters. Het biedt een veilig opslagsysteem voor API-sleutels, certificaten, wachtwoorden en andere gevoelige gegevens. Het biedt een centrale plek en een enkele bron om geheimen over Google Cloud te beheren, met functies zoals versiebeheer van geheimen, integratie met cloud IAM en audit logging.
+
+### Azure Key Vault
 Azure Key Vault is een Microsoft Azure-service waarmee gebruikers cryptografische sleutels kunnen opslaan en gebruiken. Voor klantspecifieke sleutels biedt Azure Key Vault verschillende sleuteltypen en algoritmen, evenals het gebruik van Hardware Security Modules (HSM).
 
 ## Bronnen
