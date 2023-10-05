@@ -6,7 +6,7 @@
 <img align="right" style="width: 140px;" src="https://in4it.com/wp-content/uploads/2020/11/secret.jpg">
 <img align="right" style="width: 140px;" src="https://b2750956.smushcdn.com/2750956/wp-content/uploads/2021/01/3-31510_svg-kubernetes-logo-hd-png-download-696x664.png?lossy=1&strip=1&webp=1">
  
-In de steeds sneller evoluerende wereld van softwareontwikkeling is beveiliging niet langer een bijzaak. Het beschermen van gevoelige gegevens en de integriteit van applicaties is van essentieel belang. Deze blog duikt in de wereld van Kubernetes Secrets en laat zien hoe je deze geheime 'sleutels' kunt beheren om jouw applicaties aanzienlijk veiliger te maken. Ontdek de strategieën en best practices die je kunt toepassen om de beveiliging van jouw Kubernetes-gebaseerde applicaties te versterken.
+In de steeds sneller evoluerende wereld van softwareontwikkeling is beveiliging niet langer een bijzaak. Het beschermen van gevoelige gegevens en de integriteit van applicaties is van essentieel belang. Deze blog duikt in de wereld van Kubernetes Secrets en laat zien hoe u deze geheime 'sleutels' kunt beheren om jouw applicaties aanzienlijk veiliger te maken. Ontdek de strategieën en best practices die u kunt toepassen om de beveiliging van jouw Kubernetes-gebaseerde applicaties te versterken.
 
 **PERSOONLIJKER MAKEN**
 
@@ -40,7 +40,7 @@ Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan
 
 ## Aanmaken en gebruik van Secrets
 
-We zullen nu gaan kijken hoe we secrets kunnen aanmaken en gebruiken.Het gebruik van Secrets geeft je meer flexibiliteit bij het definiëren van de Pod Life-cyclus en controle over hoe gevoelige gegevens worden gebruikt. Het vermindert het risico dat de gegevens aan ongeautoriseerde gebruikers worden blootgesteld. (Advocate, 2021)
+We zullen nu gaan kijken hoe we secrets kunnen aanmaken en gebruiken.Het gebruik van Secrets geeft u meer flexibiliteit bij het definiëren van de Pod Life-cyclus en controle over hoe gevoelige gegevens worden gebruikt. Het vermindert het risico dat de gegevens aan ongeautoriseerde gebruikers worden blootgesteld. (Advocate, 2021)
 
 ### Via command line
 
@@ -232,9 +232,17 @@ De volgende best practices zijn bedoeld voor zowel clusterbeheerders als applica
 
 Gebruik namespaces om uw secrets te isoleren en de toegang daartoe te beperken. U kunt voor elk team of elke applicatie een aparte namespaces aanmaken en alleen toegang verlenen aan het noodzakelijke personeel. (Demaku, 2023)
 
-### Gebruik encryptie
+### Beperk geheime toegang tot specifieke containers
 
-Gebruik encryptie om uw secrets tijdens verzending en in rust te beschermen. Kubernetes versleutelt automatisch secrets in rust, maar u kunt ook TLS gebruiken om ze onderweg te versleutelen. (Demaku, 2023)
+Als u meerdere containers in een pod definieert en slechts één van die containers toegang tot een geheim nodig heeft, definieert u de configuratie van het volume of de environment variable zodat de andere containers geen toegang hebben tot dat secret.
+
+### Configureer encryptie in rust
+
+Standaard worden geheime objecten unencrypted opgeslagen in etcd. U moet de codering van uw geheime gegevens configureren in etcd. (Good practices for kubernetes secrets 2023)
+
+### Bescherm geheime gegevens na het lezen
+
+Applicaties moeten nog steeds de waarde van vertrouwelijke informatie beschermen nadat deze uit een environment variable of volume is gelezen. Uw applicatie moet bijvoorbeeld voorkomen dat de geheime gegevens openbaar worden geregistreerd of naar een niet-vertrouwde partij worden verzonden. (Good practices for kubernetes secrets 2023)
 
 ### Gebruik RBAC
 
@@ -266,7 +274,7 @@ CyberArk Secrets Manager is ontworpen voor Kubernetes en biedt secrets- en refer
 
 ### AWS Secrets Manager
 
-AWS Secrets Manager is een AWS-service waarmee je snel database-inloggegevens, API-sleutels en andere wachtwoorden kunt roteren, beheren en ophalen. Met Secrets Manager kun je secrets beveiligen, analyseren en beheren die nodig zijn om toegang te krijgen tot AWS Cloud-mogelijkheden, externe services en on-premises.
+AWS Secrets Manager is een AWS-service waarmee u snel database-inloggegevens, API-sleutels en andere wachtwoorden kunt roteren, beheren en ophalen. Met Secrets Manager kun u secrets beveiligen, analyseren en beheren die nodig zijn om toegang te krijgen tot AWS Cloud-mogelijkheden, externe services en on-premises.
 
 ### Google Cloud Secrets Manager
 
