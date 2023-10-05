@@ -12,7 +12,7 @@ In de steeds sneller evoluerende wereld van softwareontwikkeling is beveiliging 
 
 ## Wat is Kubernetes Secret Management?
 
-Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een geheim betekent dat u geen vertrouwelijke gegevens in uw applicatiecode hoeft op te nemen. (Secrets 2023)
+Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een secret betekent dat u geen vertrouwelijke gegevens in uw applicatiecode hoeft op te nemen. (Secrets 2023)
 
 Secrets worden base64-gecodeerd opgeslagen, maar het is belangrijk op te merken dat dit geen echte beveiliging biedt - het is meer een vorm van "security through obscurity". Daarom is effectief beheer van Secrets essentieel.
 
@@ -226,7 +226,7 @@ spec:
 
 ## Best Practices
 
-De volgende best practices zijn bedoeld voor zowel clusterbeheerders als applicatieontwikkelaars. Gebruik deze richtlijnen om de beveiliging van uw gevoelige informatie in geheime objecten te verbeteren en om uw geheimen effectiever te beheren. (Good practices for kubernetes secrets 2023)
+De volgende best practices zijn bedoeld voor zowel clusterbeheerders als applicatieontwikkelaars. Gebruik deze richtlijnen om de beveiliging van uw gevoelige informatie in secret objecten te verbeteren en om uw secrets effectiever te beheren. (Good practices for kubernetes secrets 2023)
 
 ### Gebruik Namespaces
 
@@ -234,15 +234,15 @@ Gebruik namespaces om uw secrets te isoleren en de toegang daartoe te beperken. 
 
 ### Gebruik encryptie
 
-Gebruik encryptie om uw geheimen tijdens verzending en in rust te beschermen. Kubernetes versleutelt automatisch geheimen in rust, maar u kunt ook TLS gebruiken om ze onderweg te versleutelen. (Demaku, 2023)
+Gebruik encryptie om uw secrets tijdens verzending en in rust te beschermen. Kubernetes versleutelt automatisch secrets in rust, maar u kunt ook TLS gebruiken om ze onderweg te versleutelen. (Demaku, 2023)
 
 ### Gebruik RBAC
 
-Gebruik Role-Based Access Control (RBAC) om de toegang tot geheimen te beheren. Gebruik RBAC om toegang te verlenen tot specifieke secrets of namespaces, en om de toegang tot gevoelige secrets te beperken. (Demaku, 2023)
+Gebruik Role-Based Access Control (RBAC) om de toegang tot secrets te beheren. Gebruik RBAC om toegang te verlenen tot specifieke secrets of namespaces, en om de toegang tot gevoelige secrets te beperken. (Demaku, 2023)
 
-### Gebruik extern geheimenbeheer
+### Gebruik extern secret management
 
-Gebruik externe oplossingen voor geheimenbeheer, zoals Hashicorp Vault of AWS Secrets Manager, om uw geheimen extern te beheren. Met deze aanpak kunt u uw secrets veilig opslaan en kunt u Kubernetes gebruiken om ze op te halen wanneer dat nodig is. (Demaku, 2023)
+Gebruik externe oplossingen voor secret management, zoals Hashicorp Vault of AWS Secrets Manager, om uw secrets extern te beheren. Met deze aanpak kunt u uw secrets veilig opslaan en kunt u Kubernetes gebruiken om ze op te halen wanneer dat nodig is. (Demaku, 2023)
 
 ### Verander secrets regelmatig
 
@@ -250,27 +250,27 @@ Roteer uw secrets regelmatig, bijvoorbeeld elke 30 dagen, om ervoor te zorgen da
 
 ## Populaire Secret Management tools
 
-Nu gaan we kijken naar enkele van de populaire tools voor geheimenbeheer op de markt, die met Kubernetes kunnen worden gebruikt voor secret management. ((SG), 2022)
+Nu gaan we kijken naar enkele van de populaire tools voor secret management op de markt, die met Kubernetes kunnen worden gebruikt voor secret management. ((SG), 2022)
 
 ### HashiCorp Vault
 
-HashiCorp Vault is een gratis en open-source tool voor het veilig opslaan en beheren van gevoelige gegevens, zoals tokens, certificaten en API-sleutels. Het biedt een uniforme interface voor het beheren van geheimen en kan gebruikersaudits genereren. Vault ondersteunt traditionele en moderne methoden voor gebruikersauthenticatie en is een populaire keuze voor secrets management.
+HashiCorp Vault is een gratis en open-source tool voor het veilig opslaan en beheren van gevoelige gegevens, zoals tokens, certificaten en API-sleutels. Het biedt een uniforme interface voor het beheren van secrets en kan gebruikersaudits genereren. Vault ondersteunt traditionele en moderne methoden voor gebruikersauthenticatie en is een populaire keuze voor secrets management.
 
 ### Akeyless
 
-Akeyless Vault is een centrale oplossing voor geheimenbeheer, inclusief integratie met Kubernetes. Het gebruikt de Kubernetes Mutating Admission Webhook om geheimen in pods te injecteren en biedt functies zoals segregatie tussen Kubernetes-clusters, SSO-ondersteuning en verschillende authenticatiemogelijkheden.
+Akeyless Vault is een centrale oplossing voor secret management, inclusief integratie met Kubernetes. Het gebruikt de Kubernetes Mutating Admission Webhook om secrets in pods te injecteren en biedt functies zoals segregatie tussen Kubernetes-clusters, SSO-ondersteuning en verschillende authenticatiemogelijkheden.
 
 ### CyberArk Conjur
 
-CyberArk Secrets Manager is ontworpen voor Kubernetes en biedt geheimen- en referentiebeheer voor cloud-native en containeromgevingen. Het verwijdert hardgecodeerde geheimen uit broncode en biedt centraal beheer voor verschillende toepassingsworkloads.
+CyberArk Secrets Manager is ontworpen voor Kubernetes en biedt secrets- en referentiebeheer voor cloud-native en containeromgevingen. Het verwijdert hardgecodeerde secrets uit broncode en biedt centraal beheer voor verschillende toepassingsworkloads.
 
 ### AWS Secrets Manager
 
-AWS Secrets Manager is een AWS-service waarmee je snel database-inloggegevens, API-sleutels en andere wachtwoorden kunt roteren, beheren en ophalen. Met Secrets Manager kun je geheimen beveiligen, analyseren en beheren die nodig zijn om toegang te krijgen tot AWS Cloud-mogelijkheden, externe services en on-premises.
+AWS Secrets Manager is een AWS-service waarmee je snel database-inloggegevens, API-sleutels en andere wachtwoorden kunt roteren, beheren en ophalen. Met Secrets Manager kun je secrets beveiligen, analyseren en beheren die nodig zijn om toegang te krijgen tot AWS Cloud-mogelijkheden, externe services en on-premises.
 
 ### Google Cloud Secrets Manager
 
-Secret Manager is een dienst van Google Cloud voor het beheren van geheimen op clusters. Het biedt een veilig opslagsysteem voor API-sleutels, certificaten, wachtwoorden en andere gevoelige gegevens. Het biedt een centrale plek en een enkele bron om geheimen over Google Cloud te beheren, met functies zoals versiebeheer van geheimen, integratie met cloud IAM en audit logging.
+Secret Manager is een dienst van Google Cloud voor het beheren van secrets op clusters. Het biedt een veilig opslagsysteem voor API-sleutels, certificaten, wachtwoorden en andere gevoelige gegevens. Het biedt een centrale plek en een enkele bron om secrets over Google Cloud te beheren, met functies zoals versiebeheer van secrets, integratie met cloud IAM en audit logging.
 
 ### Azure Key Vault
 
@@ -284,7 +284,7 @@ Kubernetes Secret Management is de praktijk van het veilig opslaan en beheren va
 
 Secrets worden aangemaakt en gebruikt via of de command line of YAML-bestanden. Ze kunnen als environment variables aan pods worden toegevoegd of als volumes worden gemount.
 
-Best Practices voor de kubernetes secret management omvatten het gebruik van namespaces voor isolatie, encryptie voor beveiliging, RBAC voor toegangsbeheer, externe geheimenbeheeroplossingen en regelmatige verandering van geheimen.
+Best Practices voor de kubernetes secret management omvatten het gebruik van namespaces voor isolatie, encryptie voor beveiliging, RBAC voor toegangsbeheer, externe secret management oplossingen en regelmatige verandering van secrets.
 
 Populaire tools voor Secret Management in Kubernetes zijn HashiCorp Vault, Akeyless, CyberArk Conjur, AWS Secrets Manager, Google Cloud Secrets Manager en Azure Key Vault. Effectief Secret Management is essentieel om de beveiliging en betrouwbaarheid van Kubernetes-toepassingen te waarborgen.
 
