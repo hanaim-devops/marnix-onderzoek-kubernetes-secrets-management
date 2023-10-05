@@ -32,6 +32,128 @@ Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan
 
 ## Aanmaken van Secrets
 
+### Via command line
+
+Maak username.txt en password.txt tekst bestanden.
+
+```bash
+echo -n 'root' > ./username.txt
+echo -n 'Mq2D#(8gf09' > ./password.txt
+```
+
+en
+
+```bash
+$ kubectl create secret generic db-cerds \
+  --from-file=./username.txt \
+  --from-file=./password.txt
+
+
+Output:
+
+secret/db-cerds created
+```
+
+Lijst van secrets:
+
+```bash
+$ kubectl get secret/db-cerds
+
+
+Output:
+
+NAME       TYPE      DATA      AGE
+db-cerds   Opaque    2         26s
+```
+
+Bekijken van secret:
+
+```bash
+$ kubectl describe secret/db-cerds
+
+
+Output:
+
+Name:         db-cerds
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Type:  Opaque
+
+Data
+====
+password.txt:  11 bytes
+username.txt:  4 bytes
+```
+
+### Via YAML bestand
+
+The Secret bevat twee manieren: data en stringdata. Het data veld wordt gebruikt om willekeurige gegevens op te slaan, gecodeerd met base64. Nu gaan wij de secret data omzetten naar base64.
+
+```bash
+$ echo -n 'root' | base64
+Output: cm9vdA==
+
+$ echo -n 'Mq2D#(8gf09' | base64
+Output: TXEyRCMoOGdmMDk=
+```
+
+Aanmaken van een YAML bestand genaamd `creds.yaml` met de secret data.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: database-creds
+type: Opaque
+data:
+  username: cm9vdA==
+  password: TXEyRCMojGdmMDk=
+```
+
+Aanmaken van de secret door `kubectl create`
+
+```bash
+$ kubectl create -f creds.yaml
+
+Output: 
+
+secret/database-creds created
+```
+
+Lijst van secrets:
+
+```bash
+$ kubectl get secret/database-creds
+
+Output:
+
+NAME             TYPE      DATA      AGE
+database-creds   Opaque    2         1m
+```
+
+Bekijken van secret:
+
+```bash
+$ kubectl get secret/database-creds -o yaml
+
+Output:
+
+apiVersion: v1
+data:
+  password: TXEyRCMojGdmMDk=
+  username: cm9vdA==
+kind: Secret
+metadata:
+  creationTimestamp: "2023-10-05T17:45:17Z"
+  name: database-creds
+  namespace: default
+  resourceVersion: "105750"
+  uid: 26d540ba-6e44-43a0-ab3a-397f0aac46ff
+type: Opaque
+```
+
 ## Best Practices
 
 **INTRO**
