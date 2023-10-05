@@ -294,6 +294,8 @@ Secrets worden aangemaakt en gebruikt via of de command line of YAML-bestanden. 
 
 Best Practices voor de kubernetes secret management omvatten het gebruik van namespaces voor isolatie, encryptie voor beveiliging, RBAC voor toegangsbeheer, externe secret management oplossingen en regelmatige verandering van secrets.
 
+Best practices voor Kubernetes Secret Management omvatten het gebruik van namespaces voor isolatie, encryptie voor beveiliging, RBAC voor toegangsbeheer, het beperken van secret toegang tot specifieke containers, het gebruik van externe secret management-oplossingen zoals HashiCorp Vault, regelmatige verandering van secrets en bescherming van geheime gegevens na lezing.
+
 Populaire tools voor Secret Management in Kubernetes zijn HashiCorp Vault, Akeyless, CyberArk Conjur, AWS Secrets Manager, Google Cloud Secrets Manager en Azure Key Vault. Effectief Secret Management is essentieel om de beveiliging en betrouwbaarheid van Kubernetes-toepassingen te waarborgen.
 
 ## Bronnen
