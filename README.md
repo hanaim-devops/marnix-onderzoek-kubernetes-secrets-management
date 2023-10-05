@@ -30,7 +30,7 @@ Elke pod in een Kubernetes-cluster heeft standaard toegang tot een serviceaccoun
 #### Docker Registry Secrets
 Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan. Dit stelt pods in staat om Docker-images te halen van privéregio's die authenticatie vereisen.
 
-## Aanmaken van Secrets
+## Aanmaken en gebruik van Secrets
 
 ### Via command line
 
@@ -152,6 +152,66 @@ metadata:
   resourceVersion: "105750"
   uid: 26d540ba-6e44-43a0-ab3a-397f0aac46ff
 type: Opaque
+```
+
+### Gebruik van secrets
+
+Een secret kan op twee manieren worden gebruikt:
+
+1. specificeer environment variables die verwijzen naar de waarden van het secret
+2. mount een volume dat het secret bevat.
+
+#### Environment variables
+
+```yaml
+--- 
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: php-mysql-app
+spec: 
+  containers: 
+    - 
+      env: 
+        - 
+          name: MYSQL_USER
+          valueFrom: 
+            secretKeyRef: 
+              key: username
+              name: database-creds
+        - 
+          name: MYSQL_PASSWORD
+          valueFrom: 
+            secretKeyRef: 
+              key: password
+              name: database-creds
+      image: "php:latest"
+      name: php-app
+```
+
+#### Secret als een volume
+
+```yaml
+--- 
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: redis-pod
+spec: 
+  containers: 
+    - 
+      image: redis
+      name: redis-pod
+      volumeMounts: 
+        - 
+          mountPath: /etc/dbcreds
+          name: dbcreds
+          readOnly: true
+  volumes: 
+    - 
+      name: dbcreds
+      secret: 
+        secretName: database-creds
 ```
 
 ## Best Practices
