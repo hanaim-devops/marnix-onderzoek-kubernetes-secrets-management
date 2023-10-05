@@ -222,7 +222,7 @@ spec:
         secretName: database-creds
 ```
 
-## Best Practices
+## Good Practices
 
 De volgende best practices zijn bedoeld voor zowel clusterbeheerders als applicatieontwikkelaars. Gebruik deze richtlijnen om de beveiliging van uw gevoelige informatie in secret objecten te verbeteren en om uw secrets effectiever te beheren. (Good practices for kubernetes secrets 2023)
 
@@ -281,8 +281,6 @@ Secret Manager is een dienst van Google Cloud voor het beheren van secrets op cl
 ### Azure Key Vault
 
 Azure Key Vault is een Microsoft Azure-service waarmee gebruikers cryptografische sleutels kunnen opslaan en gebruiken. Voor klantspecifieke sleutels biedt Azure Key Vault verschillende sleuteltypen en algoritmen, evenals het gebruik van Hardware Security Modules (HSM).
-
-**TABEL MET VERGELIJKING**
 
 ## Conclusie
 
