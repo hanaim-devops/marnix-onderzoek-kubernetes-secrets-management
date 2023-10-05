@@ -73,5 +73,8 @@ Azure Key Vault is een Microsoft Azure-service waarmee gebruikers cryptografisch
 
 **TABEL MET VERGELIJKING**
 
+## Conclusie
+**SOORT SAMENVATTING**
+
 ## Bronnen
 - 
