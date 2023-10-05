@@ -279,7 +279,14 @@ Azure Key Vault is een Microsoft Azure-service waarmee gebruikers cryptografisch
 **TABEL MET VERGELIJKING**
 
 ## Conclusie
-**SOORT SAMENVATTING**
+
+Kubernetes Secret Management is de praktijk van het veilig opslaan en beheren van gevoelige informatie binnen Kubernetes-clusters. Dit omvat wachtwoorden, tokens en sleutels die anders in applicatiecode zouden worden opgenomen. Er zijn verschillende soorten Secrets die gebruikt kunnen worden, zoals Generic/Opaque Secrets, SSH Secrets, TLS Secrets, Service Account Tokens en Docker Registry Secrets.
+
+Secrets worden aangemaakt en gebruikt via of de command line of YAML-bestanden. Ze kunnen als environment variables aan pods worden toegevoegd of als volumes worden gemount.
+
+Best Practices voor de kubernetes secret management omvatten het gebruik van namespaces voor isolatie, encryptie voor beveiliging, RBAC voor toegangsbeheer, externe geheimenbeheeroplossingen en regelmatige verandering van geheimen.
+
+Populaire tools voor Secret Management in Kubernetes zijn HashiCorp Vault, Akeyless, CyberArk Conjur, AWS Secrets Manager, Google Cloud Secrets Manager en Azure Key Vault. Effectief Secret Management is essentieel om de beveiliging en betrouwbaarheid van Kubernetes-toepassingen te waarborgen.
 
 ## Bronnen
 
