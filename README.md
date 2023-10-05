@@ -8,6 +8,8 @@
  
 In de steeds sneller evoluerende wereld van softwareontwikkeling is beveiliging niet langer een bijzaak. Het beschermen van gevoelige gegevens en de integriteit van applicaties is van essentieel belang. Deze blog duikt in de wereld van Kubernetes Secrets en laat zien hoe je deze geheime 'sleutels' kunt beheren om jouw applicaties aanzienlijk veiliger te maken. Ontdek de strategieën en best practices die je kunt toepassen om de beveiliging van jouw Kubernetes-gebaseerde applicaties te versterken.
 
+**PERSOONLIJKER MAKEN**
+
 ## Wat is Kubernetes Secret Management?
 Kubernetes Secrets zijn een ingebouwd Kubernetes-resourcestype dat wordt gebruikt om gevoelige gegevens te beheren en op te slaan. Dit kunnen wachtwoorden, tokens, sleutels, of andere geheime informatie zijn die nodig is door applicaties binnen een cluster. Secrets worden base64-gecodeerd opgeslagen, maar het is belangrijk op te merken dat dit geen echte beveiliging biedt - het is meer een vorm van "security through obscurity". Daarom is effectief beheer van Secrets essentieel.
 
@@ -31,6 +33,8 @@ Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan
 ## Aanmaken van Secrets
 
 ## Best Practices
+
+**INTRO**
 
 ### Gebruik Namespaces
 Gebruik namespaces om uw secrets te isoleren en de toegang daartoe te beperken. U kunt voor elk team of elke applicatie een aparte namespaces aanmaken en alleen toegang verlenen aan het noodzakelijke personeel.
@@ -66,6 +70,8 @@ Secret Manager is een dienst van Google Cloud voor het beheren van geheimen op c
 
 ### Azure Key Vault
 Azure Key Vault is een Microsoft Azure-service waarmee gebruikers cryptografische sleutels kunnen opslaan en gebruiken. Voor klantspecifieke sleutels biedt Azure Key Vault verschillende sleuteltypen en algoritmen, evenals het gebruik van Hardware Security Modules (HSM).
+
+**TABEL MET VERGELIJKING**
 
 ## Bronnen
 - 
