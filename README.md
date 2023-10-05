@@ -5,10 +5,8 @@
 
 <img align="right" style="width: 140px;" src="https://in4it.com/wp-content/uploads/2020/11/secret.jpg">
 <img align="right" style="width: 140px;" src="https://b2750956.smushcdn.com/2750956/wp-content/uploads/2021/01/3-31510_svg-kubernetes-logo-hd-png-download-696x664.png?lossy=1&strip=1&webp=1">
- 
-In de steeds sneller evoluerende wereld van softwareontwikkeling is beveiliging niet langer een bijzaak. Het beschermen van gevoelige gegevens en de integriteit van applicaties is van essentieel belang. Deze blog duikt in de wereld van Kubernetes Secrets en laat zien hoe u deze geheime 'sleutels' kunt beheren om jouw applicaties aanzienlijk veiliger te maken. Ontdek de strategieën en best practices die u kunt toepassen om de beveiliging van jouw Kubernetes-gebaseerde applicaties te versterken.
 
-**PERSOONLIJKER MAKEN**
+Ik volg op het moment de minor DevOps aan de Hogeschool van Arnhem en Nijmegen. Mij leek het erg interessant om een onderzoek te doen naar Kubernetes Secret Management. Ik heb dit onderwerp gekozen omdat ik het interessant vind om te leren hoe je gevoelige informatie veilig kunt opslaan en beheren in Kubernetes. Ik heb dit onderzoek gedaan om meer te leren over Kubernetes Secret Management en om mijn kennis te delen met anderen.
 
 ## Wat is Kubernetes Secret Management?
 
