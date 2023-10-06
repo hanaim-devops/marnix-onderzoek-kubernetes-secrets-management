@@ -10,7 +10,7 @@ Ik volg op het moment de minor DevOps aan de Hogeschool van Arnhem en Nijmegen. 
 
 ## Wat is Kubernetes Secret Management?
 
-Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een secret betekent dat u geen vertrouwelijke gegevens in uw applicatiecode hoeft op te nemen. (Secrets 2023)
+Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een secret betekent dat je geen vertrouwelijke gegevens in jouw applicatiecode hoeft op te nemen. (Secrets 2023)
 
 Secrets worden base64-gecodeerd opgeslagen, maar het is belangrijk op te merken dat dit geen echte beveiliging biedt - het is meer een vorm van "security through obscurity". Daarom is effectief beheer van Secrets essentieel.
 
@@ -34,11 +34,11 @@ Elke pod in een Kubernetes-cluster heeft standaard toegang tot een serviceaccoun
 
 #### Docker Registry Secrets
 
-Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan. Dit stelt pods in staat om Docker-images te halen van privéregio's die authenticatie vereisen.
+Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan. Dit stelt pods in staat om Docker-images te halen van prive registry die authenticatie vereisen.
 
 ## Aanmaken en gebruik van Secrets
 
-We zullen nu gaan kijken hoe we secrets kunnen aanmaken en gebruiken.Het gebruik van Secrets geeft u meer flexibiliteit bij het definiëren van de Pod Life-cyclus en controle over hoe gevoelige gegevens worden gebruikt. Het vermindert het risico dat de gegevens aan ongeautoriseerde gebruikers worden blootgesteld. (Advocate, 2021)
+We zullen nu gaan kijken hoe we secrets kunnen aanmaken en gebruiken. Het gebruik van Secrets geeft je meer flexibiliteit bij het definiëren van de Pod Life-cyclus en controle over hoe gevoelige gegevens worden gebruikt. Het vermindert het risico dat de gegevens aan ongeautoriseerde gebruikers worden blootgesteld. (Advocate, 2021)
 
 ### Via command line
 
@@ -224,23 +224,23 @@ spec:
 
 ## Good Practices
 
-De volgende best practices zijn bedoeld voor zowel clusterbeheerders als applicatieontwikkelaars. Gebruik deze richtlijnen om de beveiliging van uw gevoelige informatie in secret objecten te verbeteren en om uw secrets effectiever te beheren. (Good practices for kubernetes secrets 2023)
+De volgende best practices zijn bedoeld voor zowel clusterbeheerders als applicatieontwikkelaars. Gebruik deze richtlijnen om de beveiliging van jouw gevoelige informatie in secret objecten te verbeteren en om jouw secrets effectiever te beheren. (Good practices for kubernetes secrets 2023)
 
 ### Gebruik Namespaces
 
-Gebruik namespaces om uw secrets te isoleren en de toegang daartoe te beperken. U kunt voor elk team of elke applicatie een aparte namespaces aanmaken en alleen toegang verlenen aan het noodzakelijke personeel. (Demaku, 2023)
+Gebruik namespaces om jouw secrets te isoleren en de toegang daartoe te beperken. Je kunt voor elk team of elke applicatie een aparte namespaces aanmaken en alleen toegang verlenen aan het noodzakelijke personeel. (Demaku, 2023)
 
 ### Beperk geheime toegang tot specifieke containers
 
-Als u meerdere containers in een pod definieert en slechts één van die containers toegang tot een geheim nodig heeft, definieert u de configuratie van het volume of de environment variable zodat de andere containers geen toegang hebben tot dat secret.
+Als je meerdere containers in een pod definieert en slechts één van die containers toegang tot een geheim nodig heeft, definieert je de configuratie van het volume of de environment variable zodat de andere containers geen toegang hebben tot dat secret.
 
 ### Configureer encryptie in rust
 
-Standaard worden geheime objecten unencrypted opgeslagen in etcd. U moet de codering van uw geheime gegevens configureren in etcd. (Good practices for kubernetes secrets 2023)
+Standaard worden geheime objecten unencrypted opgeslagen in etcd. Je moet de codering van jouw geheime gegevens configureren in etcd. (Good practices for kubernetes secrets 2023)
 
 ### Bescherm geheime gegevens na het lezen
 
-Applicaties moeten nog steeds de waarde van vertrouwelijke informatie beschermen nadat deze uit een environment variable of volume is gelezen. Uw applicatie moet bijvoorbeeld voorkomen dat de geheime gegevens openbaar worden geregistreerd of naar een niet-vertrouwde partij worden verzonden. (Good practices for kubernetes secrets 2023)
+Applicaties moeten nog steeds de waarde van vertrouwelijke informatie beschermen nadat deze uit een environment variable of volume is gelezen. Jouw applicatie moet bijvoorbeeld voorkomen dat de geheime gegevens openbaar worden geregistreerd of naar een niet-vertrouwde partij worden verzonden. (Good practices for kubernetes secrets 2023)
 
 ### Gebruik RBAC
 
@@ -248,11 +248,11 @@ Gebruik Role-Based Access Control (RBAC) om de toegang tot secrets te beheren. G
 
 ### Gebruik extern secret management
 
-Gebruik externe oplossingen voor secret management, zoals Hashicorp Vault of AWS Secrets Manager, om uw secrets extern te beheren. Met deze aanpak kunt u uw secrets veilig opslaan en kunt u Kubernetes gebruiken om ze op te halen wanneer dat nodig is. (Demaku, 2023)
+Gebruik externe oplossingen voor secret management, zoals Hashicorp Vault of AWS Secrets Manager, om jouw secrets extern te beheren. Met deze aanpak kunt je jouw secrets veilig opslaan en kunt je Kubernetes gebruiken om ze op te halen wanneer dat nodig is. (Demaku, 2023)
 
 ### Verander secrets regelmatig
 
-Roteer uw secrets regelmatig, bijvoorbeeld elke 30 dagen, om ervoor te zorgen dat ze veilig blijven. Gebruik automatiseringstools om dit proces te automatiseren en vermijd handmatige tussenkomst. (Demaku, 2023)
+Rouleer jouw secrets regelmatig, bijvoorbeeld elke 30 dagen, om ervoor te zorgen dat ze veilig blijven. Gebruik automatiseringstools om dit proces te automatiseren en vermijd handmatige tussenkomst. (Demaku, 2023)
 
 ## Populaire Secret Management tools
 
@@ -272,7 +272,7 @@ CyberArk Secrets Manager is ontworpen voor Kubernetes en biedt secrets- en refer
 
 ### AWS Secrets Manager
 
-AWS Secrets Manager is een AWS-service waarmee u snel database-inloggegevens, API-sleutels en andere wachtwoorden kunt roteren, beheren en ophalen. Met Secrets Manager kun u secrets beveiligen, analyseren en beheren die nodig zijn om toegang te krijgen tot AWS Cloud-mogelijkheden, externe services en on-premises.
+AWS Secrets Manager is een AWS-service waarmee je snel database-inloggegevens, API-sleutels en andere wachtwoorden kunt roteren, beheren en ophalen. Met Secrets Manager kun je secrets beveiligen, analyseren en beheren die nodig zijn om toegang te krijgen tot AWS Cloud-mogelijkheden, externe services en on-premises.
 
 ### Google Cloud Secrets Manager
 
