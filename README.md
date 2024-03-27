@@ -42,47 +42,63 @@ Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan
 
 We zullen nu gaan kijken hoe we secrets kunnen aanmaken en gebruiken. Het gebruik van Secrets geeft je meer flexibiliteit bij het definiëren van de Pod Life-cyclus en controle over hoe gevoelige gegevens worden gebruikt. Het vermindert het risico dat de gegevens aan ongeautoriseerde gebruikers worden blootgesteld. (Advocate, 2021)
 
+Voordat we beginnen, moet `kubectl` zijn geïnstalleerd en geconfigureerd om te communiceren met jouw Kubernetes-cluster.
+
+Voor MacOS kan dat als volgt in de terminal:
+
+```bash
+$ brew install kubectl
+```
+
+Voor Windows is het verstandig om deze [handleiding](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/) te volgen.
+
 ### Via command line
 
-Maak username.txt en password.txt tekst bestanden.
+Als eerste zal de methode worden uitgelegd om via de terminal of command line een secret aan te maken.
+
+Als eerste stap zullen we twee bestanden aanmaken voor met gebruikersnaam en wachtwoord, waar we later naar verwijzen. Dit kan als volgt in de terminal:
 
 ```bash
 echo -n 'root' > ./username.txt
 echo -n 'Mq2D#(8gf09' > ./password.txt
 ```
 
-en
+Hierna kunnen we de secret aanmaken voor bijv. een database en verwijzen we naar de bestanden die we net hebben aangemaakt, die we graag in onze secret willen hebben. Deze secret zullen we `db-creds` noemen. Dit kan als volgt in de terminal:
 
 ```bash
 $ kubectl create secret generic db-cerds \
   --from-file=./username.txt \
   --from-file=./password.txt
+```
 
+Het resultaat zal zijn:
 
-Output:
-
+```bash
 secret/db-cerds created
 ```
 
-Lijst van secrets:
+Om te controleren of de "db-creds" secret is aangemaakt, zullen we een commando uitvoeren die alle secrets in de namespace laat zien. Dit kan als volgt in de terminal:
 
 ```bash
 $ kubectl get secret/db-cerds
+```
 
+De db-cerds secret zal nu worden teruggegeven in de lijst:
 
-Output:
-
+```bash
 NAME       TYPE      DATA      AGE
 db-cerds   Opaque    2         26s
 ```
 
-Bekijken van secret:
+Om de details van de secret te bekijken, kunnen we het volgende commando uitvoeren:
 
 ```bash
 $ kubectl describe secret/db-cerds
+```
 
+Zoals hieronder te zien is, bevat de secret twee bestanden: `username.txt` en `password.txt` en is van het type `Opaque`.
 
-Output:
+```bash
 
 Name:         db-cerds
 Namespace:    default
@@ -99,17 +115,36 @@ username.txt:  4 bytes
 
 ### Via YAML bestand
 
-De Secret bevat twee manieren: data en stringdata. Het data veld wordt gebruikt om willekeurige gegevens op te slaan, gecodeerd met base64.
+Via een YAML-bestand kunnen we ook een secret aanmaken. Dit kan handig zijn als je meerdere secrets wilt aanmaken bij het deployen van een applicatie. Deze YAML bestanden kunnen worden opgeslagen ergens waar alleen de DevOps team bij kan.
+
+In dit scenario zullen we een secret aanmaken voor een database omgeving met een gebruikersnaam en wachtwoord.
+
+Omdat een secret base64-gecodeerd is, moeten we de waarden van de secret eerst base64-encoderen.
+
+Als eerste willen we de gebruikersnaam `root` base64-encoderen. Dit kan als volgt in de terminal:
 
 ```bash
 $ echo -n 'root' | base64
-Output: cm9vdA==
+```
+Met als resultaat:
 
-$ echo -n 'Mq2D#(8gf09' | base64
-Output: TXEyRCMoOGdmMDk=
+```bash
+cm9vdA==
 ```
 
-Aanmaken van een YAML bestand genaamd `creds.yaml` met de secret data.
+Vervolgens willen we het wachtwoord `Mq2D#(8gf09` base64-encoderen. Dit kan als volgt in de terminal:
+
+```bash
+$ echo -n 'Mq2D#(8gf09' | base64
+```
+
+Met als resultaat:
+
+```bash
+TXEyRCMoOGdmMDk=
+```
+
+Nu kunnen we een YAML-bestand aanmaken met bijv. de naam `creds.yml` en de secret zal de naam `database-creds` krijgen. Hierin komen de base64-gecodeerde waarden van de gebruikersnaam en het wachtwoord te staan en dit ziet er als volgt uit:
 
 ```yaml
 apiVersion: v1
@@ -122,34 +157,39 @@ data:
   password: TXEyRCMojGdmMDk=
 ```
 
-Aanmaken van de secret door `kubectl create`
+Nu we het YAML-bestand hebben aangemaakt, staat de secret nog niet in de Kubernetes cluster. Om de secret aan te maken, kunnen we het volgende commando uitvoeren:
 
 ```bash
 $ kubectl create -f creds.yaml
+```
 
-Output: 
+Het resultaat zal zijn:
 
+```bash
 secret/database-creds created
 ```
 
-Lijst van secrets:
+Om te controleren of de "database-creds" secret is aangemaakt, zullen we een commando uitvoeren die alle secrets in de namespace laat zien. Dit kan als volgt in de terminal:
 
 ```bash
 $ kubectl get secret/database-creds
+```
 
-Output:
+De database-creds secret zal nu worden teruggegeven in de lijst:
 
+```bash
 NAME             TYPE      DATA      AGE
 database-creds   Opaque    2         1m
 ```
 
-Bekijken van secret:
+Om de details van de secret te bekijken met als output in YAML, kunnen we het volgende commando uitvoeren:
 
 ```bash
 $ kubectl get secret/database-creds -o yaml
+```
+Het volgende yaml format zal worden teruggegeven:
 
-Output:
-
+```bash
 apiVersion: v1
 data:
   password: TXEyRCMojGdmMDk=
@@ -236,10 +276,6 @@ Gebruik namespaces om jouw secrets te isoleren en de toegang daartoe te beperken
 
 Als je meerdere containers in een pod definieert en slechts één van die containers toegang tot een geheim nodig heeft, definieert je de configuratie van het volume of de environment variable zodat de andere containers geen toegang hebben tot dat secret.
 
-### Configureer encryptie in rust
-
-Standaard worden geheime objecten unencrypted opgeslagen in etcd. Je moet de codering van jouw geheime gegevens configureren in etcd. (Good practices for kubernetes secrets, 2023)
-
 ### Bescherm geheime gegevens na het lezen
 
 Applicaties moeten nog steeds de waarde van vertrouwelijke informatie beschermen nadat deze uit een environment variable of volume is gelezen. Jouw applicatie moet bijvoorbeeld voorkomen dat de geheime gegevens openbaar worden geregistreerd of naar een niet-vertrouwde partij worden verzonden. (Good practices for kubernetes secrets, 2023)
@@ -262,7 +298,7 @@ Nu gaan we kijken naar enkele van de populaire tools voor secret management op d
 
 ### HashiCorp Vault
 
-HashiCorp Vault is een gratis en open-source tool voor het veilig opslaan en beheren van gevoelige gegevens, zoals tokens, certificaten en API-sleutels. Het biedt een uniforme interface voor het beheren van secrets en kan gebruikersaudits genereren. Vault ondersteunt traditionele en moderne methoden voor gebruikersauthenticatie en is een populaire keuze voor secrets management.
+HashiCorp Vault is een gratis en open-source tool voor het veilig opslaan en beheren van gevoelige gegevens, zoals tokens, certificaten en API-sleutels. Het biedt een uniforme interface voor het beheren van secrets. Vault ondersteunt traditionele en moderne methoden voor gebruikersauthenticatie en is een populaire keuze voor secrets management.
 
 ### Akeyless
 
