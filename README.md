@@ -14,6 +14,8 @@ Ik volg op het moment de minor DevOps aan de Hogeschool van Arnhem en Nijmegen. 
 
 Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een secret betekent dat je geen vertrouwelijke gegevens in jouw applicatiecode hoeft op te nemen. (Secrets, 2023)
 
+Omdat secrets onafhankelijk kunnen worden gemaakt van de pods die ze gebruiken, is er minder risico dat de secret (en de gegevens ervan) zichtbaar worden tijdens de workflow van het maken, bekijken en bewerken van pods. (Secrets, 2023)
+
 Secrets worden base64-gecodeerd opgeslagen, maar het is belangrijk op te merken dat dit geen echte beveiliging biedt - het is meer een vorm van "security through obscurity". Daarom is effectief beheer van Secrets essentieel.
 
 ### Soorten Secrets
@@ -302,7 +304,7 @@ HashiCorp Vault is een gratis en open-source tool voor het veilig opslaan en beh
 
 ### Akeyless
 
-Akeyless Vault is een centrale oplossing voor secret management, inclusief integratie met Kubernetes. Het gebruikt de Kubernetes Mutating Admission Webhook om secrets in pods te injecteren en biedt functies zoals segregatie tussen Kubernetes-clusters, SSO-ondersteuning en verschillende authenticatiemogelijkheden.
+Akeyless Vault is een centrale oplossing voor secret management, inclusief integratie met Kubernetes. Het gebruikt de Kubernetes Mutating Admission Webhook om secrets in pods te injecteren en biedt functies zoals Kubernetes-clusters kunnen gescheiden worden in verschillende omgevingen (denken aan test-, ontwikkelings- en productieomgevingen), SSO-ondersteuning en verschillende authenticatiemogelijkheden.
 
 ### CyberArk Conjur
 
