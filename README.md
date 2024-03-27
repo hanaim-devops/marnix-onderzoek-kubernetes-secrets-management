@@ -12,7 +12,7 @@ Ik volg op het moment de minor DevOps aan de Hogeschool van Arnhem en Nijmegen. 
 
 ## Wat is Kubernetes Secret Management?
 
-Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een secret betekent dat je geen vertrouwelijke gegevens in jouw applicatiecode hoeft op te nemen. (Secrets 2023)
+Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een secret betekent dat je geen vertrouwelijke gegevens in jouw applicatiecode hoeft op te nemen. (Secrets, 2023)
 
 Secrets worden base64-gecodeerd opgeslagen, maar het is belangrijk op te merken dat dit geen echte beveiliging biedt - het is meer een vorm van "security through obscurity". Daarom is effectief beheer van Secrets essentieel.
 
@@ -99,7 +99,7 @@ username.txt:  4 bytes
 
 ### Via YAML bestand
 
-The Secret bevat twee manieren: data en stringdata. Het data veld wordt gebruikt om willekeurige gegevens op te slaan, gecodeerd met base64.
+De Secret bevat twee manieren: data en stringdata. Het data veld wordt gebruikt om willekeurige gegevens op te slaan, gecodeerd met base64.
 
 ```bash
 $ echo -n 'root' | base64
@@ -226,7 +226,7 @@ spec:
 
 ## Good Practices
 
-De volgende best practices zijn bedoeld voor zowel clusterbeheerders als applicatieontwikkelaars. Gebruik deze richtlijnen om de beveiliging van jouw gevoelige informatie in secret objecten te verbeteren en om jouw secrets effectiever te beheren. (Good practices for kubernetes secrets 2023)
+De volgende best practices zijn bedoeld voor zowel clusterbeheerders als applicatieontwikkelaars. Gebruik deze richtlijnen om de beveiliging van jouw gevoelige informatie in secret objecten te verbeteren en om jouw secrets effectiever te beheren. (Good practices for kubernetes secrets, 2023)
 
 ### Gebruik Namespaces
 
@@ -238,11 +238,11 @@ Als je meerdere containers in een pod definieert en slechts één van die contai
 
 ### Configureer encryptie in rust
 
-Standaard worden geheime objecten unencrypted opgeslagen in etcd. Je moet de codering van jouw geheime gegevens configureren in etcd. (Good practices for kubernetes secrets 2023)
+Standaard worden geheime objecten unencrypted opgeslagen in etcd. Je moet de codering van jouw geheime gegevens configureren in etcd. (Good practices for kubernetes secrets, 2023)
 
 ### Bescherm geheime gegevens na het lezen
 
-Applicaties moeten nog steeds de waarde van vertrouwelijke informatie beschermen nadat deze uit een environment variable of volume is gelezen. Jouw applicatie moet bijvoorbeeld voorkomen dat de geheime gegevens openbaar worden geregistreerd of naar een niet-vertrouwde partij worden verzonden. (Good practices for kubernetes secrets 2023)
+Applicaties moeten nog steeds de waarde van vertrouwelijke informatie beschermen nadat deze uit een environment variable of volume is gelezen. Jouw applicatie moet bijvoorbeeld voorkomen dat de geheime gegevens openbaar worden geregistreerd of naar een niet-vertrouwde partij worden verzonden. (Good practices for kubernetes secrets, 2023)
 
 ### Gebruik RBAC
 
@@ -258,7 +258,7 @@ Rouleer jouw secrets regelmatig, bijvoorbeeld elke 30 dagen, om ervoor te zorgen
 
 ## Populaire Secret Management tools
 
-Nu gaan we kijken naar enkele van de populaire tools voor secret management op de markt, die met Kubernetes kunnen worden gebruikt voor secret management. ((SG), 2022)
+Nu gaan we kijken naar enkele van de populaire tools voor secret management op de markt, die met Kubernetes kunnen worden gebruikt voor secret management. (Saurabh Gupta, 2022)
 
 ### HashiCorp Vault
 
@@ -306,4 +306,4 @@ Good practices for kubernetes secrets (2023) Kubernetes. Beschikbaar op: https:/
 
 Demaku, A. (2023) Managing kubernetes secrets: Best practices and examples, Medium. Beschikbaar op: https://medium.com/@arton.demaku/managing-kubernetes-secrets-best-practices-and-examples-85eaeb6a6835 (geraadpleegd: 05 oktober 2023).
 
-(SG), S.G. (2022) Popular Secret Management Tools for Kubernetes workloads in 2022, Medium. Beschikbaar op: https://medium.com/@DevopsFollower/popular-secret-management-tools-for-kubernetes-workloads-in-2022-6d9027accf7c (geraadpleegd: 05 oktober 2023).
+(Saurabh Gupta), S.G. (2022) Popular Secret Management Tools for Kubernetes workloads in 2022, Medium. Beschikbaar op: https://medium.com/@DevopsFollower/popular-secret-management-tools-for-kubernetes-workloads-in-2022-6d9027accf7c (geraadpleegd: 05 oktober 2023).
