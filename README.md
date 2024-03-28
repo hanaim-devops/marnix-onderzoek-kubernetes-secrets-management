@@ -12,11 +12,17 @@ Ik volg op het moment de minor DevOps aan de Hogeschool van Arnhem en Nijmegen. 
 
 ## Wat is Kubernetes Secret Management?
 
+Eerst zullen we kijken naar wat Kubernetes precies is. Kubernetes is een draagbaar, uitbreidbaar, open source platform voor het beheren van gecontaineriseerde workloads en services, dat zowel declaratieve configuratie als automatisering mogelijk maakt. (Overview, 2024)
+
+Het beheren van gecontaineriseerde workloads en services gaat als volgt in een Kubernetes cluster. Een Kubernetes-cluster bestaat uit ten minste één master node en meerdere working nodes. De nodes zijn machines (VM's of fysieke servers) waarop applicaties en workloads als containers worden uitgevoerd. Een cluster is een reeks van nodes die samenwerken om containerapplicaties uit te voeren. Binnen een cluster en een worker node worden containers geplaatst in pods, die de kleinste eenheid van Kubernetes zijn. (Ken Lee, 2024)
+
+Om deze containers te laten communiceren met andere services, databases of API's, is het vaak nodig om gevoelige informatie zoals wachtwoorden, tokens of sleutels op te slaan. Kubernetes Secret Management is de praktijk van het veilig opslaan en beheren van gevoelige informatie binnen Kubernetes-clusters. Naar gevoelige informatie wordt verwezen als "secrets" in Kubernetes en hier zullen we verder op ingaan.
+
 Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een secret betekent dat je geen vertrouwelijke gegevens in jouw applicatiecode hoeft op te nemen. (Secrets, 2023)
 
 Omdat secrets onafhankelijk kunnen worden gemaakt van de pods die ze gebruiken, is er minder risico dat de secret (en de gegevens ervan) zichtbaar worden tijdens de workflow van het maken, bekijken en bewerken van pods. (Secrets, 2023)
 
-Secrets worden base64-gecodeerd opgeslagen, maar het is belangrijk op te merken dat dit geen echte beveiliging biedt - het is meer een vorm van "security through obscurity". Daarom is effectief beheer van Secrets essentieel.
+Secrets worden base64-gecodeerd opgeslagen, maar het is belangrijk op te merken dat dit geen echte beveiliging biedt - het is meer een vorm van "security through obscurity". Daarom is effectief beheer van Secrets essentieel en zal later in deze blog nog besproken worden, wat de best practices zijn voor het beheren van Secrets.
 
 ### Soorten Secrets
 
@@ -38,7 +44,7 @@ Elke pod in een Kubernetes-cluster heeft standaard toegang tot een serviceaccoun
 
 #### Docker Registry Secrets
 
-Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan. Dit stelt pods in staat om Docker-images te halen van prive registry die authenticatie vereisen.
+Deze secrets worden gebruikt om inloggegevens voor Docker-registries op te slaan. Dit stelt pods in staat om Docker-images te halen van privé registry die authenticatie vereisen.
 
 ## Aanmaken en gebruik van Secrets
 
@@ -220,25 +226,23 @@ Een secret kan op twee manieren worden gebruikt:
 apiVersion: v1
 kind: Pod
 metadata: 
-  name: php-mysql-app
+  name: mysql-app
 spec: 
-  containers: 
-    - 
-      env: 
-        - 
-          name: MYSQL_USER
+  containers:
+    - name: mysql
+      image: mysql:5.7
+      env:
+        - name: MYSQL_USER
           valueFrom: 
             secretKeyRef: 
               key: username
               name: database-creds
-        - 
-          name: MYSQL_PASSWORD
+        - name: MYSQL_PASSWORD
           valueFrom: 
             secretKeyRef: 
               key: password
               name: database-creds
-      image: "php:latest"
-      name: php-app
+      
 ```
 
 #### Secret als een volume
@@ -251,17 +255,14 @@ metadata:
   name: redis-pod
 spec: 
   containers: 
-    - 
-      image: redis
+    - image: redis
       name: redis-pod
       volumeMounts: 
-        - 
-          mountPath: /etc/dbcreds
+        - mountPath: /etc/dbcreds
           name: dbcreds
           readOnly: true
   volumes: 
-    - 
-      name: dbcreds
+    - name: dbcreds
       secret: 
         secretName: database-creds
 ```
@@ -288,7 +289,7 @@ Gebruik Role-Based Access Control (RBAC) om de toegang tot secrets te beheren. G
 
 ### Gebruik extern secret management
 
-Gebruik externe oplossingen voor secret management, zoals Hashicorp Vault of AWS Secrets Manager, om jouw secrets extern te beheren. Met deze aanpak kunt je jouw secrets veilig opslaan en kunt je Kubernetes gebruiken om ze op te halen wanneer dat nodig is. (Demaku, 2023)
+Gebruik externe oplossingen voor secret management, zoals Hashicorp Vault of AWS Secrets Manager, om jouw secrets extern te beheren. Met deze aanpak kun je jouw secrets veilig opslaan en kan je Kubernetes gebruiken om ze op te halen wanneer dat nodig is. (Demaku, 2023)
 
 ### Verander secrets regelmatig
 
@@ -312,11 +313,11 @@ CyberArk Secrets Manager is ontworpen voor Kubernetes en biedt secrets- en refer
 
 ### AWS Secrets Manager
 
-AWS Secrets Manager is een AWS-service waarmee je snel database-inloggegevens, API-sleutels en andere wachtwoorden kunt roteren, beheren en ophalen. Met Secrets Manager kun je secrets beveiligen, analyseren en beheren die nodig zijn om toegang te krijgen tot AWS Cloud-mogelijkheden, externe services en on-premises.
+AWS Secrets Manager is een AWS-service waarmee je snel database-inloggegevens, API-sleutels en andere wachtwoorden kunt veranderen, beheren en ophalen. Met deze Secrets Manager kun je secrets beveiligen, analyseren en beheren die nodig zijn om toegang te krijgen tot AWS Cloud-mogelijkheden, externe services en on-premise oplossingen.
 
 ### Google Cloud Secrets Manager
 
-Secret Manager is een dienst van Google Cloud voor het beheren van secrets op clusters. Het biedt een veilig opslagsysteem voor API-sleutels, certificaten, wachtwoorden en andere gevoelige gegevens. Het biedt een centrale plek en een enkele bron om secrets over Google Cloud te beheren, met functies zoals versiebeheer van secrets, integratie met cloud IAM en audit logging.
+Secret Manager is een dienst van Google Cloud voor het beheren van secrets in kubernetes clusters. Het biedt een veilig opslagsysteem voor API-sleutels, certificaten, wachtwoorden en andere gevoelige gegevens. Het biedt een centrale plek en eén bron om secrets over Google Cloud te beheren, met functies zoals versiebeheer van secrets, integratie met cloud identity & access management en audit logging.
 
 ### Azure Key Vault
 
@@ -333,6 +334,10 @@ Best practices voor Kubernetes Secret Management omvatten het gebruik van namesp
 Populaire tools voor Secret Management in Kubernetes zijn HashiCorp Vault, Akeyless, CyberArk Conjur, AWS Secrets Manager, Google Cloud Secrets Manager en Azure Key Vault. Effectief Secret Management is essentieel om de beveiliging en betrouwbaarheid van Kubernetes-toepassingen te waarborgen.
 
 ## Bronnen
+
+Overview (2024) Kubernetes. Beschikbaar op: https://kubernetes.io/docs/concepts/overview/ (geraadpleegd: 28 maart 2024).
+
+Ken Lee, K. (2024) How Does Kubernetes Work? Beschikbaar op: https://www.suse.com/c/how-does-kubernetes-work/ (geraadpleegd: 28 maart 2024).
 
 Secrets (2023) Kubernetes. Beschikbaar op: https://kubernetes.io/docs/concepts/configuration/secret/ (geraadpleegd: 05 oktober 2023).
 
