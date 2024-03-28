@@ -1,6 +1,6 @@
 # Kubernetes Secret Management: Het Geheime Ingrediënt voor Sterke Applicatiebeveiliging
 
-*Marnix Wildeman*, Oktober 2023
+*Marnix Wildeman*, Maart 2024
 <br/>
 Github URL: https://github.com/MarsTwix/marnix-onderzoek-kubernetes-secrets-management
 <hr>
