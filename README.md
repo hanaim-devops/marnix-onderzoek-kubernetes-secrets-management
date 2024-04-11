@@ -5,22 +5,22 @@
 Github URL: https://github.com/MarsTwix/marnix-onderzoek-kubernetes-secrets-management
 <hr>
 
-<img align="right" style="width: 140px;" src="https://in4it.com/wp-content/uploads/2020/11/secret.jpg">
-<img align="right" style="width: 140px;" src="https://b2750956.smushcdn.com/2750956/wp-content/uploads/2021/01/3-31510_svg-kubernetes-logo-hd-png-download-696x664.png?lossy=1&strip=1&webp=1">
+<img align="right" width="140" src="https://in4it.com/wp-content/uploads/2020/11/secret.jpg">
+<img align="right" width="140" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1234px-Kubernetes_logo_without_workmark.svg.png">
 
 Ik volg op het moment de minor DevOps aan de Hogeschool van Arnhem en Nijmegen. Mij leek het erg interessant om een onderzoek te doen naar Kubernetes Secret Management. Ik heb dit onderwerp gekozen omdat ik het interessant vind om te leren hoe je gevoelige informatie veilig kunt opslaan en beheren in Kubernetes. Ik heb dit onderzoek gedaan om meer te leren over Kubernetes Secret Management en om mijn kennis te delen met anderen.
 
 ## Wat is Kubernetes Secret Management?
 
-Eerst zullen we kijken naar wat Kubernetes precies is. Kubernetes is een draagbaar, uitbreidbaar, open source platform voor het beheren van gecontaineriseerde workloads en services, dat zowel declaratieve configuratie als automatisering mogelijk maakt. (Overview, 2024)
+Eerst zullen we kijken naar wat Kubernetes precies is. Kubernetes is een draagbaar, uitbreidbaar, open source platform voor het beheren van gecontaineriseerde workloads en services, dat zowel declaratieve configuratie als automatisering mogelijk maakt (Overview, 2024).
 
-Het beheren van gecontaineriseerde workloads en services gaat als volgt in een Kubernetes cluster. Een Kubernetes-cluster bestaat uit ten minste één master node en meerdere working nodes. De nodes zijn machines (VM's of fysieke servers) waarop applicaties en workloads als containers worden uitgevoerd. Een cluster is een reeks van nodes die samenwerken om containerapplicaties uit te voeren. Binnen een cluster en een worker node worden containers geplaatst in pods, die de kleinste eenheid van Kubernetes zijn. (Ken Lee, 2024)
+Het beheren van gecontaineriseerde workloads en services gaat als volgt in een Kubernetes cluster. Een Kubernetes-cluster bestaat uit ten minste één master node en meerdere working nodes. De nodes zijn machines (VM's of fysieke servers) waarop applicaties en workloads als containers worden uitgevoerd. Een cluster is een reeks van nodes die samenwerken om containerapplicaties uit te voeren. Binnen een cluster en een worker node worden containers geplaatst in pods, die de kleinste eenheid van Kubernetes zijn (Ken Lee, 2024).
 
 Om deze containers te laten communiceren met andere services, databases of API's, is het vaak nodig om gevoelige informatie zoals wachtwoorden, tokens of sleutels op te slaan. Kubernetes Secret Management is de praktijk van het veilig opslaan en beheren van gevoelige informatie binnen Kubernetes-clusters. Naar gevoelige informatie wordt verwezen als "secrets" in Kubernetes en hier zullen we verder op ingaan.
 
-Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een secret betekent dat je geen vertrouwelijke gegevens in jouw applicatiecode hoeft op te nemen. (Secrets, 2023)
+Een secret is een object dat een kleine hoeveelheid gevoelige gegevens bevat, zoals een wachtwoord, een token of een sleutel. Dergelijke informatie zou anders in een Pod-specificatie of in een containerimage kunnen worden geplaatst. Het gebruik van een secret betekent dat je geen vertrouwelijke gegevens in jouw applicatiecode hoeft op te nemen (Secrets, 2023).
 
-Omdat secrets onafhankelijk kunnen worden gemaakt van de pods die ze gebruiken, is er minder risico dat de secret (en de gegevens ervan) zichtbaar worden tijdens de workflow van het maken, bekijken en bewerken van pods. (Secrets, 2023)
+Omdat secrets onafhankelijk kunnen worden gemaakt van de pods die ze gebruiken, is er minder risico dat de secret (en de gegevens ervan) zichtbaar worden tijdens de workflow van het maken, bekijken en bewerken van pods (Secrets, 2023).
 
 Secrets worden base64-gecodeerd opgeslagen, maar het is belangrijk op te merken dat dit geen echte beveiliging biedt - het is meer een vorm van "security through obscurity". Daarom is effectief beheer van Secrets essentieel en zal later in deze blog nog besproken worden, wat de best practices zijn voor het beheren van Secrets.
 
@@ -335,7 +335,7 @@ Populaire tools voor Secret Management in Kubernetes zijn HashiCorp Vault, Akeyl
 
 ## Bronnen
 
-Overview (2024) Kubernetes. Beschikbaar op: https://kubernetes.io/docs/concepts/overview/ (geraadpleegd: 28 maart 2024).
+Kubernetes (2024) *Kubernetes. Overview* Kubernetes.io Geraadpleegd via 28 maart 2024 op <https://kubernetes.io/docs/concepts/overview/>.
 
 Ken Lee, K. (2024) How Does Kubernetes Work? Beschikbaar op: https://www.suse.com/c/how-does-kubernetes-work/ (geraadpleegd: 28 maart 2024).
 
